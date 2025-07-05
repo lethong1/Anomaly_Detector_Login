@@ -1,7 +1,7 @@
 import requests
 
 URL = 'http://127.0.0.1:8000/api/login/'
-USERNAME = 'admin'
+USERNAME = 'user1'
 PASSWORD = '123456'
 
 for i in range(10):
@@ -12,5 +12,5 @@ for i in range(10):
     try:
         data = res.json()
     except Exception:
-        data = res.text
+        data = res.text 
     print(f"[{i+1}] Status: {res.status_code}, Response: {data}")
