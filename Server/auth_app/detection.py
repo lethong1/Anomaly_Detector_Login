@@ -11,10 +11,8 @@ def check_anomaly(username, ip, now):
         is_successful=False,
     )
     
-    if recent_fails.count() >= 8:
+    if recent_fails.count() >= 5:
         return 'blocked'
-    elif recent_fails.count() >= 5:
-        return 'checkpoint'
     elif recent_fails.count() >= 3:
         return 'suspicious'
     

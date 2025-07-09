@@ -5,7 +5,6 @@ class LoginLog(models.Model):
     STATUS_CHOICES = [
         ('normal', 'Normal'),
         ('suspicious', 'Suspicious'),
-        ('checkpoint', 'Checkpoint'),
         ('blocked', 'Blocked'),
         ('new_ip', 'New Ip Detected'),
     ]

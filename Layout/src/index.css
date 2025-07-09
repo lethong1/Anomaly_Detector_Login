@@ -54,6 +54,20 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Đảm bảo notification hiển thị */
+.ant-notification {
+  z-index: 9999 !important;
+}
+
+.ant-notification-notice {
+  z-index: 9999 !important;
+}
+
+/* Đảm bảo message hiển thị */
+.ant-message {
+  z-index: 9999 !important;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

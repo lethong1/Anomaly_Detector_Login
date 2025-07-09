@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, Typography, message } from 'antd';
+import { Form, Input, Button, Card, Typography, notification } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useAuth } from '../components/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -16,32 +16,45 @@ export default function LoginPage() {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await api.post('/token/', {
+      const response = await api.post('/login/', {
         username: values.username,
         password: values.password,
       });
       
-      const { access, refresh } = response.data;
+      const { access, refresh, status:resp_status, message:message } = response.data;
       
-      if (access && refresh) {
+      if (resp_status === 'success') {
         dispatch({
           type: 'LOGIN_SUCCESS',
           payload: {
-            user: { username: values.username },
+            user: response.data.user || { username: values.username },
             accessToken: access,
             refreshToken: refresh,
+            ipAddress: response.data.ip_address,
           },
         });
-        message.success('Đăng nhập thành công!');
+        notification.success({
+          message: 'Đăng nhập thành công!',
+          description: response.data.message || 'Đăng nhập thành công!',
+        });
         navigate('/dashboard');
       } else {
-        message.error('Thiếu thông tin token!');
+        notification.error({
+          message: 'Đăng nhập thất bại!',
+          description: response.data.message || 'Đăng nhập thất bại!',
+        });
       }
     } catch (error) {
-      if (error.response?.data?.detail) {
-        message.error(error.response.data.detail);
+      if (error.response && error.response.data && error.response.data.message) {
+        notification.error({
+          message: 'Đã có lỗi xảy ra!',
+          description: error.response.data.message || 'Đã có lỗi xảy ra, vui lòng thử lại!',
+        });
       } else {
-        message.error('Đăng nhập thất bại!');
+        notification.error({
+          message: 'Đã có lỗi xảy ra!',
+          description: 'Đã có lỗi xảy ra, vui lòng thử lại!',
+        });
       }
     } finally {
       setLoading(false);

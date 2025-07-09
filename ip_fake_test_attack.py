@@ -3,7 +3,7 @@ import random
 import time
 
 URL = "http://localhost:8000/api/login/"
-USERNAME = "user1"
+USERNAME = "user2"
 PASSWORD = "wrong123"
 
 # Danh sách IP để test - sử dụng range khác nhau
