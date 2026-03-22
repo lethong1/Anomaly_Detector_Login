@@ -1,5 +1,21 @@
 import axios from 'axios';
 
+// Hàm lấy CSRF token từ cookie
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 // Tạo axios instance
 const api = axios.create({
   baseURL: 'http://localhost:8000/api',
@@ -9,12 +25,20 @@ const api = axios.create({
   },
 });
 
-// Request interceptor để thêm access token
+// Request interceptor để thêm access token và CSRF token
 api.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    
+    // Thêm CSRF token cho POST requests
+    if (config.method === 'post' || config.method === 'put' || config.method === 'patch' || config.method === 'delete') {
+      const csrfToken = getCookie('csrftoken');
+      if (csrfToken) {
+        config.headers['X-CSRFToken'] = csrfToken;
+      }
     }
     return config;
   },

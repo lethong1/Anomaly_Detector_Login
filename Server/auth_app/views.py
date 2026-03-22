@@ -17,6 +17,7 @@ from datetime import timedelta
 from django.db.models import Count
 from django.db.models.functions import TruncDate
 from users.serializers import UserSerializer
+from django.views.decorators.csrf import csrf_exempt
 def get_client_ip(request):
     """Lấy IP thực của client, ưu tiên X-Forwarded-For header"""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -27,6 +28,7 @@ def get_client_ip(request):
     return request.META.get('REMOTE_ADDR')
 
 @api_view(['POST'])
+@csrf_exempt
 @permission_classes([AllowAny])
 def login_view(request):
     username = request.data.get('username')

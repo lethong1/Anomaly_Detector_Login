@@ -9,7 +9,7 @@ PASSWORD = 'admin'
 
 # Danh sách passwords để thử
 passwords = [
-    'admin', 'password', '123456', 'admin123', 'root', 'test',
+    'admin', 'password', '123456', 'root', 'test',
     'user', 'guest', '1234', 'qwerty', 'letmein', 'welcome'
 ]
 
@@ -18,7 +18,7 @@ print(f"📋 Danh sách passwords: {passwords}")
 print("-" * 50)
 
 for i, password in enumerate(passwords):
-    ip_fake = "192.168.1.101"
+    ip_fake = "192.168.1.214"
     headers = {
         "X-Forwarded-For": ip_fake,
         "User-Agent": f"TestBot/{i}",
