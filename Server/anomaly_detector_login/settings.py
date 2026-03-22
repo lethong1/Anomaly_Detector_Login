@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4xmd8s#bj@8d5nl*3^0f97+0uz81sqp5em^9k2@(9exvx46ek^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['anomaly-detector-login.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
