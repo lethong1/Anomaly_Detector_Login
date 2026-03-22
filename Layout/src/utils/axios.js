@@ -18,7 +18,7 @@ function getCookie(name) {
 
 // Tạo axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://anomaly-detector-login.onrender.com/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ api.interceptors.response.use(
         }
 
         // Gọi API refresh token
-        const response = await axios.post('http://localhost:8000/api/token/refresh/', {
+        const response = await axios.post('https://anomaly-detector-login.onrender.com/api/token/refresh/', {
           refresh: refreshToken,
         });
 

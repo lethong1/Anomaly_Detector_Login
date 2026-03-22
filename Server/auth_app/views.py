@@ -258,3 +258,7 @@ def get_blocked_ips(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Backend is running")
